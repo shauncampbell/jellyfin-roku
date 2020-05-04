@@ -265,6 +265,7 @@ function CreateSeriesListGroup(libraryId)
   group.id = libraryId
 
   group.observeField("seriesSelected", m.port)
+  group.observeField("seriesFocused", m.port)
 
   sidepanel = group.findNode("options")
 

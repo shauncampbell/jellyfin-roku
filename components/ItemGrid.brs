@@ -2,7 +2,9 @@ sub init()
   m.top.itemComponentName = "ListPoster"
   m.top.content = setData()
 
-  m.top.rowFocusAnimationStyle = "floatingFocus"
+  m.top.rowFocusAnimationStyle = "fixedFocusWrap"
+  ' Disable the white box around the selected items.
+  m.top.drawFocusFeedback = false
 
   m.top.showRowLabel = [false]
 
@@ -18,11 +20,10 @@ sub updateSize()
   dimensions = m.top.getScene().currentDesignResolution
 
   border = 75
-  m.top.translation = [border, border + 115]
+  m.top.translation = [border, border + 100]
 
-  textHeight = 80
-  itemWidth = (dimensions["width"] - border*2) / m.top.itemsPerRow
-  itemHeight = itemWidth * 1.5 + textHeight
+  itemWidth = ((dimensions["width"] - border*2) / m.top.itemsPerRow) - 20
+  itemHeight = itemWidth * 1.5
 
   m.top.visible = true
 
@@ -34,7 +35,7 @@ sub updateSize()
   ' Size of items in the row
   m.top.rowItemSize = [ itemWidth, itemHeight ]
   ' Spacing between items in the row
-  m.top.rowItemSpacing = [ 0, 0 ]
+  m.top.rowItemSpacing = [ 20, 0 ]
 end sub
 
 function setupRows()

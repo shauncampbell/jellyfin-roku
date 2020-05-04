@@ -17,7 +17,7 @@ sub Main()
   m.overhang = CreateObject("roSGNode", "JFOverhang")
   m.scene.insertChild(m.overhang, 0)
   
-  m.page_size = 50
+  m.page_size = 40
 
   app_start:
   m.overhang.title = ""
@@ -175,6 +175,18 @@ sub Main()
       group = CreateMovieDetailsGroup(node)
       group.overhangTitle = node.title
       m.scene.appendChild(group)
+    else if isNodeEvent(msg, "seriesFocused")
+      ' Find the node emitting the event and find the subnode named picker
+      node = msg.getRoSGNode()
+      node = node.findNode("picker")
+
+      ' Get the coordinates of the focused item in the picker and get the data
+      ' for the corresponding focused item.
+      coords = node.rowItemFocused
+      target = node.content.getChild(coords[0]).getChild(coords[1])
+
+      ' Set the overhang title to be the name of the TV series focused
+      m.overhang.title = target.title
     else if isNodeEvent(msg, "seriesSelected")
       ' If you select a TV Series from ANYWHERE, follow this flow
       node = getMsgPicker(msg, "picker")
